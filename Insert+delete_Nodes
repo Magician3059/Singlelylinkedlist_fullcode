@@ -1,0 +1,125 @@
+class Node {
+      public :
+      
+     int data;
+     Node* next;
+      
+     Node( int data){
+       this-> data = data;
+       this-> next = NULL;
+      }
+     
+    };
+     
+     void insert_at_head( Node*& head, int data){
+      Node* insert = new Node(data);
+      insert->next= head;
+      head = insert;
+     }
+     
+     void insert_at_tail(Node*& head, Node*&tail, int data){
+        tail = head;
+       // Travel till end of list
+        while( tail-> next != NULL){
+          tail = tail->next;
+        }
+       // insert at Tail 
+        Node* insert = new Node(data);
+        tail-> next = insert;
+        tail = insert;
+     }
+     
+     void insert_at_position(Node*& head , int position, int data){
+      
+      if( position == 1){
+        insert_at_head(head, data);
+      }
+      
+      else { 
+         int count = 1;
+         Node* temp = head;
+         while( count < position-1){
+          temp= temp-> next;
+          count++;
+         }
+         
+         Node* insert= new Node(data);
+         insert->next = temp->next;
+         temp->next = insert;
+       } 
+     
+     }
+     
+     void print( Node*& head){
+     
+      Node* temp = head;
+       while( temp != NULL){
+        cout<< temp->data<< " ";
+        temp= temp-> next;
+       }
+       
+     }
+     
+   // Deletion 
+    void delete_at_position( Node* &head, Node* &tail, int position){
+     
+     if(position == 1){
+       
+       Node* temp= head;
+       head = head->next;
+       temp-> next = NULL;
+       delete temp;
+      }
+     else {
+      // Traveling till position
+      int count =1;
+      Node* prev=NULL;
+      Node* current= head;
+      while( count < position) {
+        prev = current;
+        current= current->next;
+        count++;
+      }
+      // Deletion of middle & last node
+      prev->next = current->next;
+      current->next = NULL;
+      delete current;
+      }  
+    
+   }
+    
+   
+     int main(){
+     
+      Node* node1= new Node(100);
+      Node* head = node1;
+      Node* tail = head;
+      
+     insert_at_head(head,90);
+     insert_at_head(head,80);
+     insert_at_head(head,70);
+     insert_at_head(head,60);
+     print(head);
+     cout<< endl;
+     
+     insert_at_tail(head,tail,110);
+     insert_at_tail(head,tail,120);
+     
+     cout<< "\n Head "<< head-> data;
+     cout<< "\n Tail "<< tail-> data;
+     cout<< endl;
+     print(head);
+     
+     insert_at_position(head,8,999);
+     cout<< endl;
+     print(head);
+     
+     delete_at_position(head,tail,1);
+     cout<<"\n Deleting Element"<< endl;
+     print(head);
+     
+     return 0; 
+     }
+   
+   
+   
