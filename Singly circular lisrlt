@@ -79,7 +79,7 @@
     }
    
    
-    void print( Node* tail){  // pass by value 
+    void print( Node* &tail){  
       Node* temp= tail;
       // Empty list 
       if( temp == NULL){
@@ -88,10 +88,10 @@
       }
       
       do{ 
-       cout<< tail->data<<" ";
-            tail = tail->next;
+       cout<< temp->data<<" ";
+            temp = temp->next;
             }
-      while( tail != temp);        
+      while( temp != tail);        
     }
      
      
