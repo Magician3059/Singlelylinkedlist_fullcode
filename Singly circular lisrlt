@@ -1,0 +1,120 @@
+ class Node
+   { public : 
+       int data;
+       Node* next;
+       
+       Node(int data){
+        this->data= data;
+        this->next = NULL;
+       }
+       
+      ~Node(){
+         while( this->next != NULL){
+         delete next;
+         next = NULL;
+        }
+       }
+      
+   };
+  
+    void insert(Node* &tail,int element,int data){
+     
+     if( tail == NULL){
+      Node* insert = new Node(data);
+      tail = insert;
+      insert->next = insert;
+     }
+     else {
+     // Search element 
+     Node* curr= tail;
+     
+     while( curr->data != element) {
+      curr= curr->next;
+     }
+     // now curr pointing to element
+     Node* insert= new Node(data);
+     insert->next = curr->next;
+     curr->next = insert;
+     }
+    
+    }
+    
+   
+    void delete_Node(Node* &tail, int element){
+     
+     if( tail == NULL){ // 0 Nodes
+      cout<< "\n List is already Empty";
+       return;
+      }
+      
+      Node* prev = tail;
+      Node* curr = tail->next;
+     
+     // Find Node to delete 
+      while( curr->data != element){
+       prev = curr;
+       curr = curr->next; 
+        if( curr == tail->next){
+           cout<<"\n Not Found ";
+           return;
+         }
+      }
+      
+     
+       //case 1:  single Node
+      if( prev == curr){
+       cout<<"\n Delete Single Node="<< prev->data;
+       tail = NULL;
+       curr= NULL;
+       delete curr;
+       return;
+       }
+     // for deleting curr , update tail node pointing to curr
+     else if( tail == curr){ tail = prev;} // To avoid segmenafalut
+      
+      // More then 2 Nodes
+       prev->next = curr->next;
+       curr->next = NULL;
+       delete curr; // curr is deleted hence, tail shift to prev
+    }
+   
+   
+    void print( Node* tail){  // pass by value 
+      Node* temp= tail;
+      // Empty list 
+      if( temp == NULL){
+       cout<< "\n List is Empty";
+       return;
+      }
+      
+      do{ 
+       cout<< tail->data<<" ";
+            tail = tail->next;
+            }
+      while( tail != temp);        
+    }
+     
+     
+   int main(){
+    Node* tail = NULL;
+    
+    insert(tail,0,10);
+    insert(tail,10,20);
+    
+    insert(tail,20,30);
+    insert(tail,30,40);
+    print(tail);
+    cout<< endl;
+    
+    insert(tail,40,999);
+    
+    print(tail);
+    
+    delete_Node(tail, 999);
+    cout<<endl;
+    print(tail);
+   
+   return 0;
+   }
+     
+   
